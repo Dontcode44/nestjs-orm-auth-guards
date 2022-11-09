@@ -1,0 +1,14 @@
+version: '3.8'
+services:
+  database:
+    image: postgres:13
+    container_name: postgres_orm
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres_db
+    ports:
+      - 5432:5432
+    volumes:
+      - ./mysql:/var/lib/mysql
