@@ -77,4 +77,16 @@ export class UsersService {
 
     return this.userRepo.save(userFound);
   }
+
+  async getUserByEmail(email: string): Promise<User> {
+    const foundEmail= await this.userRepo.findOne({
+      where: {
+        email,
+      },
+    });
+    if (!foundEmail) {
+      throw new HttpException('Email not registred', HttpStatus.NOT_FOUND);
+    }
+    return foundEmail;
+  }
 }
