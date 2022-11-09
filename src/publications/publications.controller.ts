@@ -3,16 +3,19 @@ import {
   Get,
   Post,
   Body,
+  UseGuards,
 } from '@nestjs/common';
 import { PublicationsService } from './publications.service';
 import { CreatePublicationDto } from './dto/create-publication.dto';
 import { Publication } from './entities/publication.entity';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
 @Controller('publications')
 export class PublicationsController {
   constructor(private readonly publicationsService: PublicationsService) {}
 
-  /* Creating a new publication. */
+/* A decorator that is used to create a publication. */
+  @UseGuards(JwtAuthGuard)
   @Post()
   createPublication(
     @Body() publication: CreatePublicationDto,
@@ -20,7 +23,8 @@ export class PublicationsController {
     return this.publicationsService.createPublication(publication);
   }
 
-  /* A method that returns a promise of an array of publications. */
+  /* A decorator that is used to get all the publications. */
+  @UseGuards(JwtAuthGuard)
   @Get()
   getPublication(): Promise<Publication[]> {
     return this.publicationsService.getPublication();

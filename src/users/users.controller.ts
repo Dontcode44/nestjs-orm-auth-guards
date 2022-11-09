@@ -1,4 +1,5 @@
-import { Body, Controller, Param, ParseIntPipe, Post } from '@nestjs/common';
+import { Body, Controller, Param, ParseIntPipe, Post, UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { CreateAccountDto } from './dto/accont/create-account.dto';
 import { CreateUserDto } from './dto/user/create-user.dto';
 import { User } from './dto/user/user.entity';
@@ -15,6 +16,7 @@ export class UsersController {
   }
 
   /* Creating a new account for a user. */
+  @UseGuards(JwtAuthGuard)
   @Post(':id/account')
   createAccount(
     @Param('id', ParseIntPipe) id: number,
