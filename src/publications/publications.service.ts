@@ -32,6 +32,12 @@ export class PublicationsService {
    * @returns An array of all the publications in the database.
    */
   async getPublication() {
-    return await this.publicationRepo.find();
+    return await this.publicationRepo.find({
+      take: 10,
+      order: {
+        createdAt: 'DESC',
+      },
+      skip: 10,
+    });
   }
 }
