@@ -1,5 +1,5 @@
 import { Body, Controller, Param, ParseIntPipe, Post, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { CreateAccountDto } from './dto/accont/create-account.dto';
 import { CreateUserDto } from './dto/user/create-user.dto';
 import { User } from './dto/user/user.entity';

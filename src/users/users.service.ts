@@ -43,6 +43,7 @@ export class UsersService {
     const foundUser = await this.userRepo.findOne({
       where: {
         email: user.email,
+        
       },
     });
     if (foundUser) {
