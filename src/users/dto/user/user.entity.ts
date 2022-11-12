@@ -21,7 +21,8 @@ export class User {
   readonly id: number;
 
   @Column({ unique: true })
-  @IsEmail()
+  @IsNotEmpty()
+  @IsEmail({ message: 'Invalid email' })
   @Exclude()
   readonly email: string;
 
@@ -34,6 +35,10 @@ export class User {
   @JoinColumn()
   @Exclude()
   account: Account;
+
+  @Column({ default: false })
+  @IsNotEmpty()
+  assigned: boolean;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;

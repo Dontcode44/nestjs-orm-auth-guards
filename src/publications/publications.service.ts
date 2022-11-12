@@ -33,11 +33,11 @@ export class PublicationsService {
    */
   async getPublication() {
     return await this.publicationRepo.find({
-      take: 10,
       order: {
         createdAt: 'DESC',
       },
-      skip: 10,
+      take: 10,
+      skip: 0,
     });
   }
 }

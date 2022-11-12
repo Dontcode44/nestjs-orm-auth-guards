@@ -1,6 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
+import { MoreThanOrEqual, Repository } from 'typeorm';
 import { User } from './dto/user/user.entity';
 import * as bcrypt from 'bcrypt';
 import { Account } from './dto/accont/account.entity';
@@ -43,7 +43,6 @@ export class UsersService {
     const foundUser = await this.userRepo.findOne({
       where: {
         email: user.email,
-        
       },
     });
     if (foundUser) {
@@ -67,11 +66,18 @@ export class UsersService {
       where: {
         id,
       },
-      relations: ['account'],
     });
     if (!userFound) {
       throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
+    if (userFound.assigned === true) {
+      throw new HttpException(
+        'User already has an account',
+        HttpStatus.CONFLICT,
+      );
+    }
+    userFound.assigned = true;
+    this.userRepo.update(userFound.id, userFound);
     const newAccount = this.accountRepository.create(user);
     const savedProfile = await this.accountRepository.save(newAccount);
     userFound.account = savedProfile;
@@ -79,8 +85,13 @@ export class UsersService {
     return this.userRepo.save(userFound);
   }
 
+  /**
+   * This function takes in an email and returns a user
+   * @param {string} email - string - The email of the user we want to find.
+   * @returns The user object
+   */
   async getUserByEmail(email: string): Promise<User> {
-    const foundEmail= await this.userRepo.findOne({
+    const foundEmail = await this.userRepo.findOne({
       where: {
         email,
       },
@@ -89,5 +100,9 @@ export class UsersService {
       throw new HttpException('Email not registred', HttpStatus.NOT_FOUND);
     }
     return foundEmail;
+  }
+
+  async getUser() {
+    return this.userRepo.find();
   }
 }

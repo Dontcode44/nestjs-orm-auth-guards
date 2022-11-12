@@ -1,5 +1,5 @@
 import { Exclude } from "class-transformer";
-import { IsNotEmpty, IsEmail, IsString } from "class-validator";
+import { IsNotEmpty, IsEmail, IsString, IsFQDN } from 'class-validator';
 
 /* CreateUserDto is a class that has two properties, email and password, and both are required and must
 be a string. */

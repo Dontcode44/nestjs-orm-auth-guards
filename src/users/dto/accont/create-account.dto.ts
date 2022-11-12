@@ -1,21 +1,20 @@
 import { Exclude } from "class-transformer";
-import { IsNotEmpty, IsNumber, IsPositive } from "class-validator";
+import { IsDateString, IsNotEmpty, IsNumber, IsPositive } from "class-validator";
 
 /* It's a class that has a name, lastname, age, and account property */
 export class CreateAccountDto {
   @IsNotEmpty()
   @Exclude()
-  name: string;
+  readonly name: string;
 
   @IsNotEmpty()
   @Exclude()
-  lastname: string;
+  readonly lastname: string;
 
   @IsNotEmpty()
-  @IsNumber()
-  @IsPositive()
+  @IsDateString()
   @Exclude()
-  age: number;
+  readonly age: Date;
 
   @IsNotEmpty()
   @IsNumber()

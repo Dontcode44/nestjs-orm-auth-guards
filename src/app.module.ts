@@ -19,7 +19,7 @@ import { AuthModule } from './auth/auth.module';
         password: process.env.DB_PASSWORD,
         database: process.env.DB_DATABASE,
         entities: [__dirname + '/**/*.entity{.ts,.js}'],
-        synchronize: false,
+        synchronize: true,
       }),
     }),
     UsersModule,

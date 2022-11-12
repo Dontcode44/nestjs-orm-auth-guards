@@ -1,7 +1,7 @@
-import { Column, CreateDateColumn, Entity, Index, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { IsNotEmpty, IsNumber, IsPositive } from "class-validator";
-import { Publication } from "src/publications/entities/publication.entity";
-import { Exclude } from "class-transformer";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { IsAlpha, IsNotEmpty } from 'class-validator';
+import { Publication } from 'src/publications/entities/publication.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class Account {
@@ -10,26 +10,24 @@ export class Account {
   @Exclude()
   readonly id: number;
 
-  @IsNotEmpty()
   @Column({ nullable: false })
-  @Index("idx_names", { unique: true })
+  @IsNotEmpty()
+  @IsAlpha()
   @Exclude()
   readonly name: string;
 
-  @IsNotEmpty()
   @Column({ nullable: false })
+  @IsNotEmpty()
+  @IsAlpha()
   @Exclude()
   readonly lastname: string;
 
+  @Column({ type: 'timestamp', nullable: false })
   @IsNotEmpty()
-  @Column({ nullable: false })
-  @Index("idx_ages", { unique: false })
-  @IsNumber()
-  @IsPositive()
   @Exclude()
-  readonly age: number;
+  age?: Date;
 
-  @OneToMany(() => Publication, publication => publication.author)
+  @OneToMany(() => Publication, (publication) => publication.author)
   @Exclude()
   readonly publication: Publication[];
 

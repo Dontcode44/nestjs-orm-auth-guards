@@ -20,14 +20,13 @@ export class Publication {
   readonly id: number;
 
   @Column()
-  @Index("idx_tittles", { unique: true })
+  @Index("idx_tittles")
   @IsNotEmpty()
   @IsString()
   @Exclude()
   readonly title: string;
 
   @Column()
-  @Index("idx_contents", { unique: true })
   @IsNotEmpty()
   @IsString()
   @Exclude()
