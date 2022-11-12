@@ -39,7 +39,7 @@ export class AuthService {
    * @param {User} user - User - The user object that was returned from the database.
    * @returns An object with a property called access_token.
    */
-  async generateToken(user: User) {
+  async generateToken(user: User): Promise<{ access_token: string }> {
     return {
       access_token: this.jwtService.sign({
         email: user.email,
