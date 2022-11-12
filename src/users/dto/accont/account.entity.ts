@@ -28,7 +28,6 @@ export class Account {
   age?: Date;
 
   @OneToMany(() => Publication, (publication) => publication.author)
-  @Index("idx_publications")
   @Exclude()
   readonly publication: Publication[];
 

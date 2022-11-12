@@ -40,7 +40,6 @@ export class Publication {
   readonly authorId: number;
 
   @ManyToOne(() => Account, (account) => account.publication)
-  @Exclude()
   readonly author: Account;
 
   @CreateDateColumn({ type: 'timestamp' })
