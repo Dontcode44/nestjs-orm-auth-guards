@@ -102,7 +102,7 @@ export class UsersService {
     return foundEmail;
   }
 
-  async getUser() {
-    return this.userRepo.find();
-  }
+  // async getUser() {
+  //   return this.userRepo.find();
+  // }
 }

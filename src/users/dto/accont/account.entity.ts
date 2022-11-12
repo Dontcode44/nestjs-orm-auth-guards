@@ -1,4 +1,4 @@
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, Index, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { IsAlpha, IsNotEmpty } from 'class-validator';
 import { Publication } from 'src/publications/entities/publication.entity';
 import { Exclude } from 'class-transformer';
@@ -28,6 +28,7 @@ export class Account {
   age?: Date;
 
   @OneToMany(() => Publication, (publication) => publication.author)
+  @Index("idx_publications")
   @Exclude()
   readonly publication: Publication[];
 

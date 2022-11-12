@@ -25,8 +25,8 @@ export class UsersController {
     return this.userService.createAccount(+id, account);
   }
 
-  @Get()
-  getAllUsers(): Promise<User[]> {
-    return this.userService.getUser();
-  }
+  // @Get()
+  // getAllUsers(): Promise<User[]> {
+  //   return this.userService.getUser();
+  // }
 }
